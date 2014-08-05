@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>对象身价大占卜</title>
+    <meta name="keywords" content="对象身价大占卜"/>
+    <meta name="description" content="对象身价大占卜"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+    <style type="text/css">
+        html, body{background:#f7e3ce;}
+        .g-bd{background:#f5f5f5;}
+        #message{height:212px;border-radius:5px;border:solid 4px #f9d1a8;background:#f7e3ce;}
+        .tgcnt{margin:5px auto;text-align:center;font-size:1em;font-weight:bolder;}
+        h3{margin:5px auto;color:#ff6666;font-size:2em;font-weight:bolder;text-align:center;}
+        #share{margin:0 auto;padding:80px 0;}
+        .share0, .share1{height:44px;line-height:44px;border-radius:22px;color:#fff;font-size:1em;font-weight:bolder;display:inline-block;text-align:center;text-decoration:none;width:46%;margin:0 1%;padding:0;}
+        .share0{background:#ff6666;}
+        .share1{background:#39baf6;}
+    </style>
+</head>
+<body>
+    <div class="g-bd">
+        <div style="width:190px;height:210px;margin:0 auto;">
+            <img src="/hehe.jpg" alt='hehe' />
+        </div>
+        <div id="message">
+            <p class="tgcnt">你的对象身价为</p>
+            <h3 id="price0">500W~100W</h3>
+            <p id="price1" class="tgcnt"></p>
+        </div>
+        <div id="share">
+            <!--a title="分享到易信朋友圈" href="javascript:void(0);">分享到易信朋友圈</a-->
+            <a class="share0" title="右上角分享朋友圈" href="javascript:void(0);">右上角分享朋友圈</a>
+            <a class="share1" title="重新测试" href="/index.html">重新测试</a>
+            <!--a title="分享到新浪微博" href="javascript:void(0);">分享到新浪微博</a-->
+            <!--a title="分享到腾讯微博" href="javascript:void(0);">分享到腾讯微博</a-->
+            <!--a title="分享到豆瓣" href="javascript:void(0);">分享到豆瓣</a-->
+        </div>
+    </div>
+    <script type="text/javascript">
+        var _weixinok = false,
+            _number = Math.random(),
+            _msg = document.getElementById('message'),
+            _share= document.getElementById('share');
+        var price0 = document.getElementById('price0'),
+            price1 = document.getElementById('price1');
+        var prices = ['0元','5元','50元','500元','1000元','2000元','1W～10W','10W～50W','50W～100W','100W～500W','500W～1000W','1000W～5000W','5000W～1亿','1亿～5亿','5亿～10亿','10亿～50亿','50亿～100亿'],
+            descs = ['别选了，你命犯孤星，注定与左手共渡一生','黄瓜最近涨价了','缺点：电池消耗量较大','注意别让她漏气了','好高档啊，进口硅胶做的吧？','你对象好可爱啊，学会握手和双脚走路了么？','越南买的吧？一年之内跑掉可以包换哟！','搬起砖，无法抱紧你，放下砖，无法养活你……','加油，再奋斗5年可以贷款买房，30年后可以还清房贷，40年后帮小孩买房，画面太美，不敢想像','买辆车，再买套房，小日子可以过得挺安稳了','不久你就会升职加薪、当上总经理、出任CEO走上人生巅峰','如果不能嫁给富二代的话，系统感觉你的容貌，你的身材，甚至你的灵魂都被毁了……','骚年，还需要肥皂吗？','但系统故障，不确定是身价，还是某液体数量……祝你好运！','亲，您家还缺打杂的用人么？小的会卖萌会暖床会写代码，能么么哒可啪啪啪！','替我向王思聪问好','双色球单注最高奖金1000万，你对象的连续买了10年，每注都中1等奖，就有这么多钱了，真走运！'];
+        document.addEventListener('WeixinJSBridgeReady',
+            function onBridgeReady() {
+                WeixinJSBridge.on('menu:share:timeline', function(argv){
+                    var  _content = '你的对象身价为' + price0.innerText + price1.innerText;
+                    weixin('','http://aicard.net/index.html',_content);
+                });
+                _weixinok = true;
+            }
+        )
+        var shareTimeline = function(a,b,c){
+            WeixinJSBridge.invoke('shareTimeline',{
+                "appid":'wxaa19d49513b9d755',
+                "img_url": a,
+                "link": b,
+                "desc": c,
+                "title": c
+            },function(res){
+                //
+                WeixinJSBridge.log(res.err_msg);
+            });
+        }
+        var weixin =  function (a,b,c){
+            if(_weixinok){
+                shareTimeline(a,b,c);
+            }else{
+                alert('不要急，分享内容还没准备好~');
+                return false;
+            }
+        };
+        var shareToYixin = function(_shareData){
+            var _s = [],
+                _url = "http://open.yixin.im/share?";
+            for(var i in _shareData){
+                if(_shareData.hasOwnProperty(i)){
+                    _shareData[i]!=null && _s.push(i.toString()+encodeURIComponent(_shareData[i].toString()||''))
+                }
+            }
+            location.href = _url + _s.join('&');
+        };
+        // _share.addEventListener('touchstart',function(_event){
+        //     var _event = _event||window.event,
+        //         _target = _event.target||_event.srcElement;
+        //         _title = _target.title,
+        //         _myurl = 'http://aicard.net/index.html';
+        //     var  _content = '你的对象身价为' + price0.innerText + price1.innerText;
+        //     if (_title === '重新测试' || _target.nodeName != 'A') return;
+        //     if (_title === '分享到新浪微博'){
+        //         location.href = "http://service.weibo.com/share/share.php?title=" + encodeURIComponent(_content) + "&url=" + _myurl;
+        //     }else if(_title === '分享到腾讯微博'){
+        //         location.href = "http://v.t.qq.com/share/share.php?title=" + encodeURIComponent(_content) + "&url=" + _myurl;
+        //     }else if(_title === '分享到豆瓣'){
+        //         location.href = 'http://www.douban.com/recommend/?bm' + encodeURIComponent(_content) + "&url=" + _myurl;
+        //     }else if(_title === '分享到易信朋友圈'){
+        //         var shareData = {
+        //             "appkey":"xxx",
+        //             "type":"text",
+        //             "text":_content,
+        //             "userdesc":""
+        //         }
+        //         shareToYixin(shareData);
+        //     }else{
+        //         weixin('','http://aicard.net/index.html',_content);
+        //     }
+        // },false);
+
+        var randomIndex = function(max){
+            var index = Math.ceil(Math.random() * max);
+            return index < 1 ? 1 : index;
+        }
+        var _i = randomIndex(prices.length)-1;
+        price0.innerText = prices[_i];
+        price1.innerText = descs[_i];
+    </script>
+</body>
+</html>
