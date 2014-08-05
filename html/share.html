@@ -17,6 +17,27 @@
         .share0{background:#ff6666;}
         .share1{background:#39baf6;}
     </style>
+    <script type="text/javascript">
+        var prices = [
+            {'0元':[['你命犯孤星，注定与左手共渡一生'],['']]},
+            {'5元':[['省着点用，黄瓜最近涨价了'],['']]},
+            {'50元':[['你的电池消耗量较大'],['']]},
+            {'500元':[['记得给你女朋友按时充气'],['']]},
+            {'1000元':[['好高档啊，进口硅胶做的吧？'],['']]},
+            {'2000元':[['你对象好可爱啊，学会握手和双脚走路了么？'],['']]},
+            {'1W～10W':[['是越南买的吧？一年之内跑掉可以包换哟！'],['']]},
+            {'10W～50W':[['搬起砖，无法抱紧你，放下砖，无法养活你……'],['']]},
+            {'50W～100W':[['加油，再奋斗5年可以贷款买房，30年后可以还清房贷，40年后帮小孩买房，画面太美，不敢想像'],['']]},
+            {'100W～500W':[['买辆车，再买套房，小日子可以过得挺安稳了'],['']]},
+            {'500W～1000W':[['不久你就会升职加薪、当上总经理、出任CEO走上人生巅峰'],['']]},
+            {'1000W～5000W':[['如果不能嫁给富二代的话，系统感觉你的容貌，你的身材，甚至你的灵魂都被毁了……'],['']]},
+            {'5000W～1亿':[['就差今晚双色球中奖了！'],['']]},
+            {'1亿～5亿':[['但系统故障，不确定是身价，还是某液体数量……祝你好运！'],['']]},
+            {'5亿～10亿':[['亲，您家还缺打杂的用人么？小的会卖萌会暖床会写代码，能么么哒可啪啪啪！'],['']]},
+            {'10亿～50亿':[['替我向王思聪问好'],['']]},
+            {'50亿～100亿':[['这么多欢乐豆，斗一辈子地主都够了'],['']]},
+            {'0':[['这么多欢乐豆，斗一辈子地主都够了'],['']]}];
+    </script>
 </head>
 <body>
     <div class="g-bd">
@@ -44,8 +65,6 @@
             _share= document.getElementById('share');
         var price0 = document.getElementById('price0'),
             price1 = document.getElementById('price1');
-        var prices = ['0元','5元','50元','500元','1000元','2000元','1W～10W','10W～50W','50W～100W','100W～500W','500W～1000W','1000W～5000W','5000W～1亿','1亿～5亿','5亿～10亿','10亿～50亿','50亿～100亿'],
-            descs = ['别选了，你命犯孤星，注定与左手共渡一生','黄瓜最近涨价了','缺点：电池消耗量较大','注意别让她漏气了','好高档啊，进口硅胶做的吧？','你对象好可爱啊，学会握手和双脚走路了么？','越南买的吧？一年之内跑掉可以包换哟！','搬起砖，无法抱紧你，放下砖，无法养活你……','加油，再奋斗5年可以贷款买房，30年后可以还清房贷，40年后帮小孩买房，画面太美，不敢想像','买辆车，再买套房，小日子可以过得挺安稳了','不久你就会升职加薪、当上总经理、出任CEO走上人生巅峰','如果不能嫁给富二代的话，系统感觉你的容貌，你的身材，甚至你的灵魂都被毁了……','骚年，还需要肥皂吗？','但系统故障，不确定是身价，还是某液体数量……祝你好运！','亲，您家还缺打杂的用人么？小的会卖萌会暖床会写代码，能么么哒可啪啪啪！','替我向王思聪问好','双色球单注最高奖金1000万，你对象的连续买了10年，每注都中1等奖，就有这么多钱了，真走运！'];
         document.addEventListener('WeixinJSBridgeReady',
             function onBridgeReady() {
                 WeixinJSBridge.on('menu:share:timeline', function(argv){
@@ -115,9 +134,33 @@
             var index = Math.ceil(Math.random() * max);
             return index < 1 ? 1 : index;
         }
-        var _i = randomIndex(prices.length)-1;
-        price0.innerText = prices[_i];
-        price1.innerText = descs[_i];
+        var _sex = location.href.split('?')[1].split('=')[1],
+            _value = '',
+            _desc = '',
+            _list;
+        var _i = randomIndex(prices.length-1)-1;
+        if(_sex == -1){
+            _i = prices.length -1;
+            for (var key in prices[_i]){
+                _value = key;
+            }
+            _list = prices[_i][_value][0];
+        }else if(_sex == 0){
+            // 男
+            for (var key in prices[_i]){
+                _value = key;
+            }
+            _list = prices[_i][_value][0];
+        }else{
+            // 女
+            for (var key in prices[_i]){
+                _value = key;
+            }
+            _list = prices[_i][_value][1];
+        }
+        _desc = _list[randomIndex(_list.length-1) - 1];
+        price0.innerText = _value;
+        price1.innerText = _desc;
     </script>
 </body>
 </html>

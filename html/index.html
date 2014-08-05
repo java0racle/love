@@ -37,16 +37,18 @@
             <div class="thead">选择与自己相符的各项特征</div>
             <ul class="f-cb ul2" id="ul2"></ul>
         </div>
-        <a class="smt" href="/share.html">选完了，立刻提交</a>
+        <a id="smt" class="smt" href="javascript:void(0)">选完了，立刻提交</a>
     </div>
     <script type="text/javascript">
-        var listw = ['萝莉','御姐','女汉子','绿茶婊','体重不过百','平胸','飞机场','白富美','知性','1米6以上','女王','土肥圆','萌妹子','小清新','公主病'],
-            listm = ['凤凰男','玉树凌风','打飞机','痴汉','屌丝','矮穷挫','高富帅','18厘米','潜力股','1米8以上','正太','受','攻','抠脚大汉','一夜七次郎'],
+        var listw = ['萝莉','御姐','女汉子','绿茶婊','体重不过百','平胸','飞机场','白富美','知性','1米6以上','女王','土肥圆','萌妹子','小清新','公主病','长发飘飘','游戏女','文艺女','经济适用女','九头身','干物女','高冷','孔雀女','乙女','女蛇精','天然呆','人格独立','古典美女'],
+            listm = ['凤凰男','玉树凌风','打飞机','痴汉','屌丝','矮穷挫','高富帅','18厘米','潜力股','1米8以上','正太','受','攻','抠脚大汉','一夜七次郎','经济适用男','游戏男','肌肉男','男蛇精','有点娘','阳光宅男','技术宅'],
             lists = ['富二代','屌丝','年薪10万以上','有车有房','人来疯','喜欢用右手','喝乳娃娃','码农','爱疯果粉','韩寒','小四','后会无期','小时代','偷过TT玩','2个以上前任','EXO万岁','AKB48','会修电脑','会化妆','爱喷香水','处女座','胸口能碎石','C以上罩杯','cosplay','没wifi会死','怕冷','会砍价','会洗衣服','每天洗头','麦霸','死宅','吃甜豆腐脑','果粉','米粉','邻居姓王','会做炒饭','看韩剧','常常作死','老板很帅','王大锤','带眼镜','有兄弟姐妹','喜欢萝莉','一米六以下','想生2个','秒睡体质','爱吃麻辣烫','都敏俊','撸啊撸','苍井空','加藤鹰','学霸','学渣','英语6级','能吃2碗饭','有洁癖','养宠物','球迷','有车','有房','会打球','五音不全','一口就醉','被甩2次以上','甩人2次以上','近视','德玛西亚','18厘米','千杯不醉','狗血','爱抠脚','文艺范','2B','龟毛','我爹妈很屌','腹黑','抽烟','网购','自拍','心灵美','起床困难户','金嗓子','豆瓣','电影控','阿迪达斯','蓝调','朋克','单反穷三代','出过国','经常出差','抽烟','健身','肌肉男','KTV','吃榴莲','杀马特','知识分子','穿NB鞋','30多岁','90后','外貌协会','文艺青年','普通青年','拉风老年','技术宅','购物狂','乐活族','月光族','相信缘分','天蝎座','有胸毛'];
         var boxs = document.getElementById('boxs'),
             ul0 = document.getElementById('ul0'),
             ul1 = document.getElementById('ul1'),
-            ul2 = document.getElementById('ul2');
+            ul2 = document.getElementById('ul2'),
+            smt = document.getElementById('smt'),
+            _sex = 0;
         var startY0,startX0,startY1,startX1;
         var doClick = function(_event){
             var touch = _event.touches[0];
@@ -63,16 +65,48 @@
             var _event = _event||window.event,
                 _target = _event.target||_event.srcElement;
             if(_target.nodeName == 'LI'){
-                _target.className = _target.className == 'in' ? 'out' : 'in';
+                if(_target.className == 'in'){
+                    _target.className = 'out'
+                }else{
+                    _target.title;
+                    _target.className = 'in'
+                }
             }
         };
+        var onSmt = function(_event){
+            var _cld0 = ul0.children;
+            var _cld1 = ul1.children;
+            var _sex0,_sex1;
+            for (var i = 0,l = _cld0.length; i < l; i++){
+                if(_cld0[i].className == 'in'){
+                    _sex0 = true;
+                }
+            }
+            for (var i = 0,l = _cld1.length; i < l; i++){
+                if(_cld1[i].className == 'in'){
+                    _sex1 = true;
+                }
+            }
+            if(_sex0 && _sex1){
+                _sex = -1;
+            }else if(_sex0){
+                _sex = 0;
+            }else if(_sex1){
+                _sex = 1;
+            }else{
+                _sex = -1;
+            }
+            location.href = '/share.html?sex=' + _sex;
+        }
         boxs.addEventListener('touchstart',doClick,false);
         boxs.addEventListener('touchend',onTouchEnd,false);
+        smt.addEventListener('click',onSmt,false);
         var randomIndex = function(max){
             var index = Math.ceil(Math.random() * max);
             return index < 1 ? 1 : index;
         }
-        for (var i = 0,l = listw.length; i < 10; i++){
+        var _length0 = 8,_length1 = 20;
+        for (var i = 0,l = listw.length; i < _length0; i++){
             var index = randomIndex(l),
                 txt = listw[index-1];
             listw.splice(index-1,1);
@@ -81,10 +115,11 @@
             if (txt.length > 5){
                 txt = txt.slice(0,5)
             }
+            item.title = 0;
             item.innerText = txt;
             ul0.appendChild(item);
         }
-        for (var i = 0,l = listm.length; i < 10; i++){
+        for (var i = 0,l = listm.length; i < _length0; i++){
             var index = randomIndex(l),
                 txt = listm[index-1];
             listm.splice(index-1,1);
@@ -93,10 +128,11 @@
             if (txt.length > 5){
                 txt = txt.slice(0,5)
             }
+            item.title = 1;
             item.innerText = txt;
             ul1.appendChild(item);
         }
-        for (var i = 0,l = lists.length; i < 24; i++){
+        for (var i = 0,l = lists.length; i < _length1; i++){
             var index = randomIndex(l),
                 txt = lists[index-1];
             lists.splice(index-1,1);
