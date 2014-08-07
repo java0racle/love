@@ -21,24 +21,11 @@
     </style>
     <script type="text/javascript">
         var _images = [
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png','hehe.png'],
-            ['hehe.png']
+            'ruhua.png',
+            'haha.png',
+            'heihei.png',
+            'fengjie.png',
+            'hehe.png'
         ]
         var prices = [{'0元':[['你命犯孤星，注定与左手共渡一生'],['别选了，你命犯孤星，注定与左手共渡一生']]},
             {'5元':[['制作过程：苦瓜中心掏空，使用透明胶缠绕外围，不要问我是谁，我是红领巾'],['省着点用，黄瓜最近涨价了']]},
@@ -152,21 +139,21 @@
                 _value = key;
             }
             _list = prices[_i][_value][0];
-            _hehe.src = _images[_i][0]
+            _hehe.src = _images[4];
         }else if(_sex == 0){
             // 男
             for (var key in prices[_i]){
                 _value = key;
             }
             _list = prices[_i][_value][0];
-            _hehe.src = _images[_i][0]
+            _hehe.src = _images[randomIndex(3)]
         }else{
             // 女
             for (var key in prices[_i]){
                 _value = key;
             }
             _list = prices[_i][_value][1];
-            _hehe.src = _images[_i][1]
+            _hehe.src = _images[randomIndex(3)]
         }
         _desc = _list[randomIndex(_list.length-1) - 1];
         price0.innerText = _value;
